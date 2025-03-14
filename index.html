@@ -1,29 +1,32 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Signup</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="form-box">
-            <h2 id="form-title">Sign Up</h2>
-            
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            
-            <button onclick="signup()" id="signup-btn">Sign Up</button>
-            <button onclick="login()" id="login-btn" style="display: none;">Login</button>
-            
-            <p id="toggle-text">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
-        </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
-    <script src="script.js"></script>
-</body>
-      </html>
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Login &amp; Signup</title> 
+  <link rel="stylesheet" href="style.css"> 
+ </head> 
+ <body> 
+  <div class="container"> 
+   <div class="form-box"> 
+    <h2 id="form-title">Sign Up</h2> 
+    <div id="signup-form"> 
+     <input type="text" id="name" placeholder="Full Name"> 
+     <input type="email" id="email" placeholder="Email or Phone"> 
+     <input type="password" id="password" placeholder="Password"> 
+     <input type="password" id="confirm-password" placeholder="Confirm Password"> 
+     <input type="text" id="referral-code" placeholder="Referral Code (Optional)"> <button onclick="signup()" id="signup-btn">Sign Up</button> 
+    </div> 
+    <div id="login-form" style="display: none;"> 
+     <input type="email" id="login-email" placeholder="Email or Phone"> 
+     <input type="password" id="login-password" placeholder="Password"> <button onclick="login()" id="login-btn">Login</button> 
+     <p><a href="#" onclick="resetPassword()">Forgot Password?</a></p> 
+    </div> 
+    <p id="toggle-text">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p> 
+   </div> 
+  </div> 
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script> 
+  <script src="script.js"></script> 
+ </body>
+                                                                                                 </html>
