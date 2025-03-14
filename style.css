@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background: red; /* ব্যাকগ্রাউন্ড সম্পূর্ণ লাল */
 }
 
 .container {
@@ -41,7 +41,7 @@ button {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    background: #2575fc;
+    background: red; /* সম্পূর্ণ লাল */
     border: none;
     color: white;
     font-size: 16px;
@@ -50,7 +50,7 @@ button {
 }
 
 button:hover {
-    background: #6a11cb;
+    background: darkred; /* হোভার করলে গাঢ় লাল */
 }
 
 p {
@@ -59,7 +59,7 @@ p {
 }
 
 p a {
-    color: #2575fc;
+    color: red;
     text-decoration: none;
     font-weight: bold;
 }
