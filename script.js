@@ -1,88 +1,63 @@
-// Firebase কানেক্ট করা
-const firebaseConfig = {
-    apiKey: "তোমার_API_KEY",
-    authDomain: "তোমার_PROJECT_ID.firebaseapp.com",
-    projectId: "তোমার_PROJECT_ID",
-    storageBucket: "তোমার_PROJECT_ID.appspot.com",
-    messagingSenderId: "তোমার_SENDER_ID",
-    appId: "তোমার_APP_ID"
-};
+document.addEventListener("DOMContentLoaded", function () {
+    const formTitle = document.getElementById("form-title");
+    const authBtn = document.getElementById("auth-btn");
+    const toggleForm = document.getElementById("toggle-form");
+    const emailField = document.getElementById("email");
+    const usernameField = document.getElementById("username");
+    const passwordField = document.getElementById("password");
+    const confirmPasswordField = document.getElementById("confirm-password");
+    const referralField = document.getElementById("referral");
+    
+    let isLogin = false;
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+    toggleForm.addEventListener("click", function () {
+        isLogin = !isLogin;
+        if (isLogin) {
+            formTitle.innerText = "Login";
+            authBtn.innerText = "Login";
+            usernameField.style.display = "none";
+            confirmPasswordField.style.display = "none";
+            referralField.style.display = "none";
+            toggleForm.innerHTML = `Don't have an account? <a href="#">Register</a>`;
+        } else {
+            formTitle.innerText = "Register";
+            authBtn.innerText = "Register";
+            usernameField.style.display = "block";
+            confirmPasswordField.style.display = "block";
+            referralField.style.display = "block";
+            toggleForm.innerHTML = `Already have an account? <a href="#">Login</a>`;
+        }
+    });
 
-// সাইন আপ ফাংশন
-function signup() {
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirm-password").value;
-    let referralCode = document.getElementById("referral-code").value;
+    authBtn.addEventListener("click", function () {
+        const email = emailField.value;
+        const username = usernameField.value;
+        const password = passwordField.value;
+        const confirmPassword = confirmPasswordField.value;
 
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-    }
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            let user = userCredential.user;
-            user.updateProfile({ displayName: name });
-
-            alert("Sign Up Successful!");
-            console.log("Referral Code:", referralCode);
-            window.location.href = "dashboard.html"; // সফল হলে ড্যাশবোর্ডে পাঠাবে
-        })
-        .catch(error => {
-            alert(error.message);
-        });
-}
-
-// লগইন ফাংশন
-function login() {
-    let email = document.getElementById("login-email").value;
-    let password = document.getElementById("login-password").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            alert("Login Successful!");
-            window.location.href = "dashboard.html"; // সফল হলে ড্যাশবোর্ডে পাঠাবে
-        })
-        .catch(error => {
-            alert(error.message);
-        });
-}
-
-// পাসওয়ার্ড রিসেট ফাংশন
-function resetPassword() {
-    let email = prompt("Enter your email to reset password:");
-    if (email) {
-        auth.sendPasswordResetEmail(email)
-            .then(() => {
-                alert("Password reset email sent! Check your inbox.");
-            })
-            .catch(error => {
-                alert(error.message);
-            });
-    }
-}
-
-// সাইন আপ এবং লগইন ফর্ম টগল করা
-function toggleForm() {
-    let title = document.getElementById("form-title");
-    let signupForm = document.getElementById("signup-form");
-    let loginForm = document.getElementById("login-form");
-    let toggleText = document.getElementById("toggle-text");
-
-    if (signupForm.style.display === "none") {
-        signupForm.style.display = "block";
-        loginForm.style.display = "none";
-        title.innerText = "Sign Up";
-        toggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleForm()">Login</a>`;
-    } else {
-        signupForm.style.display = "none";
-        loginForm.style.display = "block";
-        title.innerText = "Login";
-        toggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a>`;
-    }
+        if (!isLogin) {
+            // Registration
+            if (!email || !username || !password || !confirmPassword) {
+                alert("Please fill all fields.");
+                return;
             }
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+            const user = { email, username, password };
+            localStorage.setItem("user", JSON.stringify(user));
+            alert("Registration successful! Now login.");
+            toggleForm.click(); 
+        } else {
+            // Login
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                localStorage.setItem("isLoggedIn", "true");
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Invalid email or password!");
+            }
+        }
+    });
+});
