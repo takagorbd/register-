@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const storedUser = JSON.parse(localStorage.getItem("user"));
             if (storedUser && storedUser.email === email && storedUser.password === password) {
                 localStorage.setItem("isLoggedIn", "true");
-                window.location.href = "dashboard.html";
+                window.location.href = "https://takagorbd.github.io/dasbord/";
             } else {
                 alert("Invalid email or password!");
             }
