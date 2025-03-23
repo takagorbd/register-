@@ -1,69 +1,60 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: red; /* ব্যাকগ্রাউন্ড সম্পূর্ণ লাল */
+    background-color: #f5fff0;
+    color: black;
 }
 
 .container {
-    width: 100%;
-    max-width: 400px;
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(162, 217, 142, 0.6);
     text-align: center;
+    width: 320px;
+    border: 2px solid #a2d98e;
 }
 
 h2 {
-    margin-bottom: 15px;
     color: #333;
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 12px;
     border-radius: 5px;
+    border: 1px solid #a2d98e;
     outline: none;
+    background: #e8ffdb;
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background: red; /* সম্পূর্ণ লাল */
-    border: none;
+    padding: 12px;
+    background: #88c36b;
     color: white;
-    font-size: 16px;
+    border: none;
     cursor: pointer;
+    font-size: 16px;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 button:hover {
-    background: darkred; /* হোভার করলে গাঢ় লাল */
+    background: #6fa953;
 }
 
 p {
-    margin-top: 10px;
-    color: #555;
+    margin-top: 15px;
 }
 
-p a {
-    color: red;
-    text-decoration: none;
+a {
+    color: #2c6e49;
+    cursor: pointer;
     font-weight: bold;
-}
-
-p a:hover {
-    text-decoration: underline;
 }
