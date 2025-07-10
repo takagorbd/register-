@@ -1,21 +1,198 @@
-<!doctype html>
-<html lang="en"> 
- <head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Login &amp; Register</title> 
-  <link rel="stylesheet" href="style.css"> 
- </head> 
- <body> 
-  <div class="container"> 
-   <h2 id="form-title">Register</h2> 
-   <input type="text" id="email" placeholder="Enter Email"> 
-   <input type="text" id="username" placeholder="Enter Username"> 
-   <input type="password" id="password" placeholder="Enter Password"> 
-   <input type="password" id="confirm-password" placeholder="Confirm Password"> 
-   <input type="text" id="referral" placeholder="Referral Code (Optional)"> <button id="auth-btn">Register</button> 
-   <p id="toggle-form">Already have an account? <a href="#">Login</a></p> 
-  </div> 
-  <script src="script.js"></script> 
- </body>
-</html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>দুর্যোগ সহায়তা রিচার্জ</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #141e30, #243b55);
+        color: #fff;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    .marquee {
+        background: #ffc107;
+        color: #000;
+        padding: 10px;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 10s linear infinite;
+    }
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+    h1 {
+        margin: 20px 0 10px;
+        font-size: 24px;
+    }
+    .operators {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+    }
+    .operator {
+        background: linear-gradient(145deg, #2e2e2e, #1c1c1c);
+        padding: 15px;
+        border-radius: 12px;
+        width: 100px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    }
+    .operator:hover {
+        background: linear-gradient(145deg, #444, #222);
+        transform: scale(1.05);
+    }
+    .operator.active {
+        background: linear-gradient(145deg, #00c6ff, #0072ff);
+        color: #fff;
+        box-shadow: 0 0 12px #00c6ff;
+    }
+    input {
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        width: 220px;
+        font-size: 16px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .submit-btn {
+        margin-top: 20px;
+        position: relative;
+        display: inline-block;
+    }
+    .submit-btn button {
+        padding: 12px 20px;
+        background: linear-gradient(145deg, #00c6ff, #0072ff);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+        width: 160px;
+        height: 45px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        transition: 0.3s;
+    }
+    .submit-btn button:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+    }
+    .spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 3px solid #fff;
+        border-top: 3px solid #0072ff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        display: none;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
+    .popup video {
+        max-width: 90%;
+        max-height: 90%;
+        border: 5px solid #fff;
+        border-radius: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="marquee">
+    <span>আজকের জন্য কুমিল্লা বিভাগের দুর্যোগ পরিস্থিতির কারণে বিশেষ ৫০ টাকা রিচার্জ সহায়তা কার্যক্রম চালু রয়েছে। এখনই আবেদন করুন!</span>
+</div>
+
+<h1>📢 কুমিল্লা বিভাগীয় দুর্যোগ সহায়তা বিশেষ রিচার্জ সেবা</h1>
+<p>আপনার মোবাইল অপারেটর নির্বাচন করুন:</p>
+
+<div class="operators">
+    <div class="operator" data-op="Grameen">Grameen</div>
+    <div class="operator" data-op="Robi">Robi</div>
+    <div class="operator" data-op="Airtel">Airtel</div>
+    <div class="operator" data-op="Banglalink">Banglalink</div>
+</div>
+
+<input type="text" id="number" placeholder="মোবাইল নম্বর লিখুন">
+<br>
+<div class="submit-btn">
+    <button id="submit">আবেদন করুন</button>
+    <div class="spinner" id="spinner"></div>
+</div>
+
+<div class="popup" id="popup">
+    <video src="your-funny-video.mp4" autoplay controls></video>
+</div>
+
+<script>
+const operators = document.querySelectorAll('.operator');
+let selectedOp = null;
+
+operators.forEach(op => {
+    op.addEventListener('click', () => {
+        operators.forEach(o => o.classList.remove('active'));
+        op.classList.add('active');
+        selectedOp = op.getAttribute('data-op');
+    });
+});
+
+document.getElementById('submit').addEventListener('click', () => {
+    const number = document.getElementById('number').value.trim();
+    const numberPattern = /^[0-9]{11}$/;
+
+    if (!selectedOp) {
+        alert('অপারেটর নির্বাচন করুন।');
+        return;
+    }
+
+    if (!numberPattern.test(number)) {
+        alert('সঠিক ১১ সংখ্যার ইংরেজি মোবাইল নম্বর লিখুন।');
+        return;
+    }
+
+    const submitBtn = document.getElementById('submit');
+    const spinner = document.getElementById('spinner');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '';
+    spinner.style.display = 'block';
+
+    setTimeout(() => {
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+        submitBtn.textContent = 'আবেদন করুন';
+        document.getElementById('popup').style.display = 'flex';
+    }, 3000);
+});
+</script>
+
+</body>
+ </html>
